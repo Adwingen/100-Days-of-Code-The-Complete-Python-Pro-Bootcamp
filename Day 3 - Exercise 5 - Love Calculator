@@ -1,0 +1,26 @@
+# 🚨 Don't change the code below 👇
+print("Welcome to the Love Calculator!")
+name1 = input("What is your name? \n")
+name2 = input("What is their name? \n")
+# 🚨 Don't change the code above 👆
+
+#Write your code below this line 👇
+combined_string = name1 + name2
+combined_to_lower = combined_string.lower()
+
+#count for TRUE
+total_true = combined_to_lower.count("t") + combined_to_lower.count("r") + combined_to_lower.count("u") + combined_to_lower.count("e")
+
+#count for LOVE
+total_love = combined_to_lower.count("l") + combined_to_lower.count("o") + combined_to_lower.count("v") + combined_to_lower.count("e")
+
+#count for total true love
+total_true_love = int(str(total_true) + str(total_love))
+
+#condicions statement
+if (total_true_love < 10) or (total_true_love > 90):
+    print(f"Your score is {total_true_love}, you go together like coke and mentos.")
+elif (total_true_love >= 40) and (total_true_love <= 50):
+    print(f"Your score is {total_true_love}, you are alright together.")
+else:
+    print(f"Your score is {total_true_love}.")
