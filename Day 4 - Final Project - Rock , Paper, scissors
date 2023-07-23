@@ -1,0 +1,63 @@
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+
+#Write your code below this line 👇
+
+
+import rock_paper_scissors
+import random
+
+nome_jogador = input("Qual é o teu nome? ")
+
+print(f"\nBem vindo(a) {nome_jogador} ao jogo do Pedra, Papel, Tesoura\n")
+
+selecao_jogador = int(input("Seleciona 0 para Pedra\nSeleciona 1 para Papel\nSeleciona 2 para Tesoura \n\nA minha escolha é: "))
+
+# cria array com opçoes de jogo
+opcoes_jogo = [rock_paper_scissors.rock,rock_paper_scissors.paper,rock_paper_scissors.scissors]
+
+selecao_computador = random.randint(0,2)
+
+# qual é o vencedor?
+if selecao_jogador < 0 or selecao_jogador > 2:
+  print("Opcao Inválida")
+else:
+  # imprime opçao do jogador
+  print(opcoes_jogo[selecao_jogador])
+  # imprime opçao do computador
+  print("A opção do computador é:",selecao_computador)
+  print(opcoes_jogo[selecao_computador])
+  if selecao_jogador == selecao_computador:
+    print("EMPATE o jogo ficou empatado")
+  elif selecao_jogador == 0 and selecao_computador == 2:
+    print("VITORIA do jogador",nome_jogador)
+  elif selecao_jogador == 1 and selecao_computador == 0:
+    print("VITORIA do jogador",nome_jogador)
+  elif selecao_jogador == 2 and selecao_computador == 1:
+    print("VITORIA do jogador",nome_jogador)
+  else:
+    print("DERROTA ganhou o computador")
