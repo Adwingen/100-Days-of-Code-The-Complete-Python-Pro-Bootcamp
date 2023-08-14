@@ -1,0 +1,504 @@
+
+#modulo hangman.art
+
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
+logo = ''' 
+ _                                             
+| |                                            
+| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
+| '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+| | | | (_| | | | | (_| | | | | | | (_| | | | |
+|_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                    __/ |                      
+                   |___/    '''
+
+#module hangman.words
+
+city_list = [
+'tóquio',
+'déli',
+'xangai',
+'são paulo',
+'cidade do méxico',
+'cairo',
+'mumbai',
+'pequim',
+'daca',
+'osaka',
+'nova iorque',
+'carachi',
+'buenos aires',
+'lisboa',
+'istambul',
+'calcutá',
+'manila',
+'lagos',
+'rio de janeiro',
+'tianjin',
+'madrid',
+'paris',
+'los angeles',
+'moscovo',
+'berlim',
+'atenas',
+'lima',
+'banguecoque',
+'londres',
+'riade',
+
+  
+]
+
+country_list = [
+'afeganistão',
+'áfrica do sul',
+'akrotiri',
+'albânia',
+'alemanha',
+'andorra',
+'angola',
+'anguila',
+'antárctida',
+'antígua e barbuda',
+'arábia saudita',
+'arctic ocean',
+'argélia',
+'argentina',
+'arménia',
+'aruba',
+'ashmore and cartier islands',
+'atlantic ocean',
+'austrália',
+'áustria',
+'azerbaijão',
+'baamas',
+'bangladeche',
+'barbados',
+'barém',
+'bélgica',
+'belize',
+'benim',
+'bermudas',
+'bielorrússia',
+'birmânia',
+'bolívia',
+'bósnia e herzegovina',
+'botsuana',
+'brasil',
+'brunei',
+'bulgária',
+'burquina faso',
+'burúndi',
+'butão',
+'cabo verde',
+'camarões',
+'camboja',
+'canadá',
+'catar',
+'cazaquistão',
+'chade',
+'chile',
+'china',
+'chipre',
+'clipperton island',
+'colômbia',
+'comores',
+'congo-brazzaville',
+'congo-kinshasa',
+'coral sea islands',
+'coreia do norte',
+'coreia do sul',
+'costa do marfim',
+'costa rica',
+'croácia',
+'cuba',
+'curacao',
+'dhekelia',
+'dinamarca',
+'domínica',
+'egipto',
+'emiratos árabes unidos',
+'equador',
+'eritreia',
+'eslováquia',
+'eslovénia',
+'espanha',
+'estados unidos',
+'estónia',
+'etiópia',
+'faroé',
+'fiji',
+'filipinas',
+'finlândia',
+'frança',
+'gabão',
+'gâmbia',
+'gana',
+'gaza strip',
+'geórgia',
+'geórgia do sul e sandwich do sul',
+'gibraltar',
+'granada',
+'grécia',
+'gronelândia',
+'guame',
+'guatemala',
+'guernsey',
+'guiana',
+'guiné',
+'guiné equatorial',
+'guiné-bissau',
+'haiti',
+'honduras',
+'hong kong',
+'hungria',
+'iémen',
+'ilha bouvet',
+'ilha do natal',
+'ilha norfolk',
+'ilhas caimão',
+'ilhas cook',
+'ilhas dos cocos',
+'ilhas falkland',
+'ilhas heard e mcdonald',
+'ilhas marshall',
+'ilhas salomão',
+'ilhas turcas e caicos',
+'ilhas virgens americanas',
+'ilhas virgens britânicas',
+'índia',
+'indian ocean',
+'indonésia',
+'irão',
+'iraque',
+'irlanda',
+'islândia',
+'israel',
+'itália',
+'jamaica',
+'jan mayen',
+'japão',
+'jersey',
+'jibuti',
+'jordânia',
+'kosovo',
+'kuwait',
+'laos',
+'lesoto',
+'letónia',
+'líbano',
+'libéria',
+'líbia',
+'listenstaine',
+'lituânia',
+'luxemburgo',
+'macau',
+'macedónia',
+'madagáscar',
+'malásia',
+'malávi',
+'maldivas',
+'mali',
+'malta',
+'man, isle of',
+'marianas do norte',
+'marrocos',
+'maurícia',
+'mauritânia',
+'méxico',
+'micronésia',
+'moçambique',
+'moldávia',
+'mónaco',
+'mongólia',
+'monserrate',
+'montenegro',
+'mundo',
+'namíbia',
+'nauru',
+'navassa island',
+'nepal',
+'nicarágua',
+'níger',
+'nigéria',
+'niue',
+'noruega',
+'nova caledónia',
+'nova zelândia',
+'omã',
+'pacific ocean',
+'países baixos',
+'palau',
+'panamá',
+'papua-nova guiné',
+'paquistão',
+'paracel islands',
+'paraguai',
+'peru',
+'pitcairn',
+'polinésia francesa',
+'polónia',
+'porto rico',
+'portugal',
+'quénia',
+'quirguizistão',
+'quiribáti',
+'reino unido',
+'república centro-africana',
+'república dominicana',
+'roménia',
+'ruanda',
+'rússia',
+'salvador',
+'samoa',
+'samoa americana',
+'santa helena',
+'santa lúcia',
+'são bartolomeu',
+'são cristóvão e neves',
+'são marinho',
+'são martinho',
+'são pedro e miquelon',
+'são tomé e príncipe',
+'são vicente e granadinas',
+'sara ocidental',
+'seicheles',
+'senegal',
+'serra leoa',
+'sérvia',
+'singapura',
+'sint maarten',
+'síria',
+'somália',
+'southern ocean',
+'spratly islands',
+'sri lanca',
+'suazilândia',
+'sudão',
+'sudão do sul',
+'suécia',
+'suíça',
+'suriname',
+'svalbard e jan mayen',
+'tailândia',
+'taiwan',
+'tajiquistão',
+'tanzânia',
+'território britânico do oceano índico',
+'territórios austrais franceses',
+'timor leste',
+'togo',
+'tokelau',
+'tonga',
+'trindade e tobago',
+'tunísia',
+'turquemenistão',
+'turquia',
+'tuvalu',
+'ucrânia',
+'uganda',
+'união europeia',
+'uruguai',
+'usbequistão',
+'vanuatu',
+'vaticano',
+'venezuela',
+'vietname',
+'wake island',
+'wallis e futuna',
+'west bank',
+'zâmbia',
+'zimbabué',
+    
+]
+
+animals_list = [
+'elefante',
+'leão',
+'tigre',
+'urso',
+'golfinho',
+'baleia',
+'macaco',
+'cão',
+'gato',
+'cavalo',
+'águia',
+'pinguim',
+'coruja',
+'papagaio',
+'flamingo',
+'falcão',
+'pato',
+'galinha',
+'pavão',
+'beija-flor',
+'cobra',
+'lagarto',
+'tartaruga',
+'jacaré',
+'crocodilo',
+'iguana',
+'camaleão',
+'cobra-real',
+'tartaruga-marinha',
+'cascavel',
+'sapo',
+'salamandra',
+'rã',
+'tritão',
+'perereca',
+'axolote',
+'sapo-boi',
+'rã-arborícola',
+'rã-touro',
+'rã-venenosa',
+'tubarão',
+'salmão',
+'peixe-palhaço',
+'peixe-espada',
+'piranha',
+'barracuda',
+'peixe-gato',
+'truta',
+'peixe-lua',
+'peixe-anjo',
+
+
+  
+]
+
+
+
+word_list = city_list + country_list + animals_list
+
+#main
+
+#Step 5
+
+from replit import clear
+import random
+import hangman_words
+import hangman_art
+
+#TODO-1: - Update the word list to use the 'word_list' from hangman_words.py
+
+chosen_word = random.choice(hangman_words.word_list)
+word_length = len(chosen_word)
+
+end_of_game = False
+lives = 6
+theme = ""
+
+#TODO-3: - Import the logo from hangman_art.py and print it at the start of the game.
+
+print(hangman_art.logo)
+
+#Testing code
+#print(f'Pssst, the solution is {chosen_word}.')
+
+if hangman_words.word_list.index(chosen_word) < 30:
+  theme = "Cidades"
+elif hangman_words.word_list.index(chosen_word) > 30 and hangman_words.word_list.index(chosen_word) < 289:
+  theme = "Paises"
+else: 
+  theme = "Animais"
+
+#Create blanks
+display = []
+for _ in range(word_length):
+    display += "_"
+
+while not end_of_game:
+    print(f"Tema: {theme}")
+    guess = input("Tenta adivinhar uma letra: ").lower()
+
+    clear()
+
+    #TODO-4: - If the user has entered a letter they've already guessed, print the letter and let them know.
+    if guess in display:
+      print(f"Já tentaste adivinhar a letra {guess}")
+
+    #Check guessed letter
+    for position in range(word_length):
+        letter = chosen_word[position]
+        #print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
+        if letter == guess:
+            display[position] = letter
+
+    #Check if user is wrong.
+    if guess not in chosen_word:
+        #TODO-5: - If the letter is not in the chosen_word, print out the letter and let them know it's not in the word.
+        print(f"A letra {guess} não está na palavra. Perdeste uma vida!")
+        lives -= 1
+        if lives == 0:
+            end_of_game = True
+            print("Perdeste tótó!.")
+            print(f"A palavra era {chosen_word}")
+
+    #Join all the elements in the list and turn it into a String.
+    print(f"{' '.join(display)}")
+
+    #Check if user has got all letters.
+    if "_" not in display:
+        end_of_game = True
+        print("Grande vitória!!.")
+
+    #TODO-2: - Import the stages from hangman_art.py and make this error go away.
+    print(hangman_art.stages[lives])
