@@ -1,0 +1,85 @@
+# calculator
+from art import logo
+
+# add
+def add(n1, n2):
+    """ add 2 numbers """
+    return n1 + n2
+
+# substrat
+def substrat(n1, n2):
+    """ substrat 2 numbers """
+    return n1 - n2
+
+# multiply
+def multiply(n1, n2):
+    """ multiply 2 numbers """
+    return n1 * n2
+
+# divid
+def divid(n1, n2):
+    """ divid 2 numbers """
+    return n1 / n2
+
+def get_valid_integer(prompt):
+    """ validate the user input """
+    while True:
+        try:
+            value = float(input(prompt))
+            return value
+        except ValueError:
+            print("Please enter a valid integer.")
+
+def get_valid_operation(prompt):
+    """ validate the user input """
+    while True:
+        value = input(prompt)
+        if value not in ["+", "-", "*", "/"]:
+            print("Please enter a valid operation.")
+        else:
+            return value
+
+def get_valid_answer(prompt):
+    """ validate the user input """
+    while True:
+        value = input(prompt).strip().lower()
+        if value not in ["y", "c", "n"]:
+            print("Please enter a valid input. Type 'y' to continue, 'c' for a new calculation, or 'n' to exit")
+        else:
+            return value
+
+# operações
+operations = {
+    "+": add,
+    "-": substrat,
+    "*": multiply,
+    "/": divid,
+}
+
+def calculator():
+    print(logo)
+    num1 = get_valid_integer("What's the first number?: ")
+    for symbol in operations:
+        print(symbol)
+
+    should_continue = True
+    while should_continue:
+        operations_symbol = get_valid_operation("Pick an operation: ")
+        num2 = get_valid_integer("What's the next number?: ")
+
+        calculation_function = operations[operations_symbol]
+        answer = calculation_function(num1, num2)
+        print(f"{num1} {operations_symbol} {num2} = {answer}")
+
+        next_step = get_valid_answer(f"Type 'y' to continue calculating with {answer}, type 'c' for a new calculation, or type 'n' to exit: ")
+
+        if next_step == "y":
+            num1 = answer
+        elif next_step == "c":
+            should_continue = False
+            calculator()
+        else:
+            print("Goodbye")
+            should_continue = False
+
+calculator()
