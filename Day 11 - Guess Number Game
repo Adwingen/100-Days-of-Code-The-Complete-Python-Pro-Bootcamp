@@ -1,0 +1,81 @@
+from art import logo
+from art import goodbye
+import random
+from replit import clear
+
+EASY_LEVEL_TURNS = 10
+HARD_LEVEL_TURNS = 5
+
+def choose_level():
+    """Validate the user input and return the selected level"""
+    while True:
+        level = input("Choose a difficulty. Type 'easy' or 'hard': ")
+        if level in ["easy", "hard"]:
+            if level == "easy":
+                return 1
+            else:
+                return 0
+        else:
+            print("Invalid input. Please type 'easy' or 'hard'")
+
+def attempts(level):
+    """Return the number of attempts based on the selected level"""
+    if level == 1:
+        return EASY_LEVEL_TURNS
+    else:
+        return HARD_LEVEL_TURNS
+
+def guess_number():
+    """Validate the user input and return the selected guess number"""
+    while True:
+        guess = input("Make a guess: ")
+        if guess.isdigit():
+            return int(guess)
+        else:
+            print("Invalid input. Please type a number")
+
+def check_guess(number, attempts):
+    """Check the guess number and return the result"""
+    attempts_countdown = attempts
+    while attempts_countdown > 0:
+        guess = guess_number()
+        if guess == number:
+            print(f"You got it! The answer was {number}")
+            return
+        elif guess > number:
+            attempts_countdown -= 1
+            print("Too high.")
+        else:
+            attempts_countdown -= 1
+            print("Too low.")
+
+        if attempts_countdown > 0:
+            print("Guess again!")
+            print(f"You have {attempts_countdown} attempts remaining to guess the number.")
+        else:
+            print("You've run out of guesses. Game Over!")
+
+def game():
+  print(logo)
+  print("Welcome to the Number Guessing Game!")
+  print("I’m thinking of a number between 1 and 100.")
+  
+  number = random.randint(1, 100)
+  #print(number)  # Optional: Remove this line in the final version to hide the answer from the player
+  choose = choose_level()
+  num_attempts = attempts(choose)
+  print(f"You have {num_attempts} attempts remaining to guess the number.")
+  
+  check_guess(number, num_attempts)
+
+  print(f"The number who have to guess is {number}")
+  another_game = input("Another game? Type 'y' to anohter game: ")
+  if another_game == 'y':
+    clear()
+    return game()
+  else:
+    print(goodbye)
+    
+  
+
+game()
