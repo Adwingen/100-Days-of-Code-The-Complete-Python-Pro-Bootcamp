@@ -1,0 +1,77 @@
+from art import logo, vs
+from game_data import data
+from replit import clear
+from random import randint
+
+# Função para validar a entrada do usuário
+def validate_input():
+    """Validate if user input is A or B"""
+    while True:
+        guess = input("Who has more followers? Type A or B: ").upper()
+        if guess in ["A", "B"]:
+            return guess
+        else:
+            print("Invalid input. Please type A or B")
+
+# Função para comparar os seguidores
+def compare_followers(data, choice_a, choice_b, guess):
+    """Compare the followers and return if the user is correct"""
+    if (guess == "A" and data[choice_a]["follower_count"] > data[choice_b]["follower_count"]):
+      return choice_b
+    elif (guess == "B" and data[choice_b]["follower_count"] > data[choice_a]["follower_count"]):
+      return choice_a
+    else:
+      print("Sorry.......... that´s wrong!")
+      return None
+
+def increment_score(answer,score):
+    """Increment the score"""
+    if answer != None:
+      return score + 1
+    else:
+      return score
+
+
+def game():
+  choice_loop = 0
+  score = 0
+  print(logo)
+  while True:
+    if score == 0:
+      # Gerar dois índices aleatórios distintos
+      choice_a = randint(0, len(data) - 1)
+      choice_b = randint(0, len(data) - 1)
+    else:
+      choice_a = choice_loop
+      if choice_b  == choice_a:
+         choice_b = randint(0, len(data) - 1)
+      else:
+        choice_b = randint(0, len(data) - 1)
+        while choice_b == choice_a:
+          choice_b = randint(0, len(data) - 1)
+
+    print(f"Compare A: {data[choice_a]['name']}, a {data[choice_a]['description']}, from {data[choice_a]['country']}.")
+
+    print(vs)
+
+    print(f"Against B: {data[choice_b]['name']}, a {data[choice_b]['description']}, from {data[choice_b]['country']}.")
+
+    guess = validate_input()
+
+    choice_loop = (compare_followers(data, choice_a, choice_b, guess))
+    score = increment_score(choice_loop,score)
+
+    if choice_loop == None:
+      print(f"Youre final score is: {score}")
+      if input("Do you want to play again? Type Y : ").upper() == 'Y':
+         clear()
+         game()
+      else:
+        print("Goodbye")
+        break
+    else:
+      clear()
+      print("You are right!!")
+      print(f"Youre score is: {score}")
+
+game()
